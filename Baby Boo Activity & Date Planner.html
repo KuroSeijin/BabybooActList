@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Baby Boo Activity & Date Planner.exe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=VT323&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Base page typography and lock scroll for app feel */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            background: #ffaec9;
+        }
+
+        .font-pixel {
+            font-family: 'VT323', monospace;
+        }
+
+        .font-cute {
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        /* Background Animated Pastel Gradient */
+        .bg-pastels {
+            background: linear-gradient(-45deg, #ffd1dc, #ffe4e1, #fbcce7, #f7d6e0, #ffb6c1, #ffe5ec);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Windows XP Pastel Window Framing */
+        .xp-window {
+            background: #fff0f6;
+            border: 3px solid #ff99c8;
+            border-radius: 12px 12px 6px 6px;
+            box-shadow: 
+                0 20px 50px rgba(230, 80, 140, 0.35),
+                inset 2px 2px 0px #ffffff,
+                inset -2px -2px 0px #f4a261;
+        }
+
+        /* XP TitleBar Ribbon Gradient */
+        .xp-titlebar {
+            background: linear-gradient(180deg, #ff85a1 0%, #ff5277 50%, #e63956 100%);
+            border-radius: 8px 8px 0 0;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+        }
+
+        /* XP Control Buttons */
+        .xp-btn-control {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 11px;
+            color: white;
+            box-shadow: 
+                inset 1px 1px 0 rgba(255,255,255,0.8),
+                inset -1px -1px 0 rgba(0,0,0,0.2),
+                1px 1px 2px rgba(0,0,0,0.2);
+            transition: all 0.1s ease;
+        }
+
+        .xp-btn-minimize { background: linear-gradient(180deg, #ffb3c6 0%, #ff758f 100%); }
+        .xp-btn-maximize { background: linear-gradient(180deg, #ffb3c6 0%, #ff758f 100%); }
+        .xp-btn-close { background: linear-gradient(180deg, #ff758f 0%, #c9184a 100%); }
+
+        .xp-btn-control:active {
+            box-shadow: inset 1px 1px 2px rgba(0,0,0,0.4);
+            transform: translateY(1px);
+        }
+
+        /* XP Inset Box for Vouchers & Summaries */
+        .xp-inset-box {
+            background: #ffffff;
+            border: 2px solid;
+            border-color: #d8b4e2 #ffffff #ffffff #d8b4e2;
+            box-shadow: inset 2px 2px 4px rgba(220, 150, 180, 0.25);
+            border-radius: 8px;
+        }
+
+        /* Custom Interactive Pastel Buttons */
+        .xp-option-btn {
+            background: linear-gradient(180deg, #ffffff 0%, #fff0f5 50%, #ffd6e8 100%);
+            border: 2px solid #ff85a1;
+            border-radius: 14px;
+            box-shadow: 
+                0 4px 12px rgba(255, 133, 161, 0.25),
+                inset 0 1px 0 #ffffff;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .xp-option-btn:hover, .xp-option-btn:active {
+            transform: translateY(-2px) scale(1.01);
+            background: linear-gradient(180deg, #ffffff 0%, #ffe4e1 50%, #ffb6c1 100%);
+            border-color: #ff477e;
+            box-shadow: 
+                0 8px 20px rgba(255, 71, 126, 0.35),
+                inset 0 1px 0 #ffffff;
+        }
+
+        /* Shimmering Text Gradient */
+        .shimmer-text {
+            background: linear-gradient(90deg, #ff477e, #ff85a1, #b5179e, #ff477e);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        /* Floating Satin Ribbon Animation */
+        @keyframes floatRibbon {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(5deg); }
+        }
+
+        .animate-ribbon {
+            animation: floatRibbon 4s ease-in-out infinite;
+        }
+
+        /* Windows XP Bottom Taskbar */
+        .xp-taskbar {
+            background: linear-gradient(180deg, #ff85a1 0%, #ff5277 20%, #e63956 100%);
+            border-top: 2px solid #ffb3c6;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
+        }
+
+        .xp-start-btn {
+            background: linear-gradient(180deg, #ffb3c6 0%, #ff477e 100%);
+            border: 1px solid #ffffff;
+            border-radius: 0 12px 12px 0;
+            box-shadow: inset 1px 1px 0 rgba(255,255,255,0.6);
+        }
+
+        /* Sparkle Overlay Canvas */
+        #sparkle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Modal Pop animation */
+        .modal-pop {
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.7) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-pastels min-h-screen w-screen flex flex-col justify-between items-center relative select-none pb-12">
+
+    <!-- Ambient Glitter Sparkle Canvas -->
+    <canvas id="sparkle-canvas"></canvas>
+
+    <!-- Decorative Corner Satin Ribbons -->
+    <div class="fixed top-4 left-4 pointer-events-none z-0 opacity-80 animate-ribbon">
+        <svg width="90" height="90" viewBox="0 0 100 100" fill="none">
+            <path d="M10 30 C30 10, 70 10, 90 30 C70 50, 30 50, 10 30 Z" fill="#ffb3c6" opacity="0.8"/>
+            <path d="M20 30 C35 60, 20 90, 10 95 C25 80, 45 60, 35 30 Z" fill="#ff758f"/>
+            <path d="M80 30 C65 60, 80 90, 90 95 C75 80, 55 60, 65 30 Z" fill="#ff758f"/>
+            <circle cx="50" cy="30" r="10" fill="#ff477e"/>
+        </svg>
+    </div>
+    <div class="fixed top-6 right-6 pointer-events-none z-0 opacity-80 animate-ribbon" style="animation-delay: -2s;">
+        <svg width="80" height="80" viewBox="0 0 100 100" fill="none">
+            <path d="M10 30 C30 10, 70 10, 90 30 C70 50, 30 50, 10 30 Z" fill="#ffc2df" opacity="0.8"/>
+            <path d="M20 30 C35 60, 20 90, 10 95 C25 80, 45 60, 35 30 Z" fill="#ff85a1"/>
+            <path d="M80 30 C65 60, 80 90, 90 95 C75 80, 55 60, 65 30 Z" fill="#ff85a1"/>
+            <circle cx="50" cy="30" r="9" fill="#ff5277"/>
+        </svg>
+    </div>
+
+    <!-- Top Floating Header Badge -->
+    <header class="z-10 mt-3 md:mt-5 text-center px-4">
+        <div class="inline-flex items-center gap-2 bg-white/85 backdrop-blur-md px-5 py-2 rounded-full border-2 border-pink-300 shadow-md">
+            <span class="text-lg">🎀</span>
+            <span class="font-extrabold text-pink-600 tracking-wider text-xs md:text-sm uppercase">Baby Boo Activity Planner</span>
+            <span class="text-lg">✨</span>
+        </div>
+    </header>
+
+    <!-- CENTER WINDOW CONTAINER -->
+    <main class="z-10 my-auto w-full max-w-md px-3 py-2">
+        <div id="main-xp-window" class="xp-window transition-all duration-300">
+            
+            <!-- Window Title Bar -->
+            <div class="xp-titlebar px-3 py-2 flex items-center justify-between cursor-move">
+                <div class="flex items-center gap-2 text-white font-bold text-xs md:text-sm tracking-wide">
+                    <span class="text-sm">💖</span>
+                    <span class="drop-shadow truncate">Baby Boo Activity Planner.exe</span>
+                </div>
+                <!-- XP Window Controls -->
+                <div class="flex items-center gap-1.5">
+                    <button onclick="minimizeWindow()" class="xp-btn-control xp-btn-minimize" title="Minimize">_</button>
+                    <button onclick="toggleMaximize()" class="xp-btn-control xp-btn-maximize" title="Maximize">□</button>
+                    <button onclick="triggerCloseAlert()" class="xp-btn-control xp-btn-close" title="Close">✕</button>
+                </div>
+            </div>
+
+            <!-- Window Menu Strip -->
+            <div class="bg-pink-50 border-b border-pink-200 px-3 py-1 flex gap-3 text-xs text-pink-700 font-medium">
+                <span class="hover:underline cursor-pointer" onclick="playSoftTone(600)">File</span>
+                <span class="hover:underline cursor-pointer" onclick="playSoftTone(650)">Activities</span>
+                <span class="hover:underline cursor-pointer" onclick="showHelpBox()">Help</span>
+                <div class="ml-auto text-pink-400 flex items-center gap-1">
+                    <i class="fa-solid fa-heart text-[10px] text-pink-500"></i>
+                    <span>v2.5 XP</span>
+                </div>
+            </div>
+
+            <!-- Main Content Card Body -->
+            <div class="p-4 md:p-6 space-y-4">
+                
+                <!-- QUESTION STEP 1: DESTINATION / ACTIVITY -->
+                <div id="step-1" class="step-card space-y-4">
+                    <div class="text-center space-y-1">
+                        <span class="inline-block bg-pink-100 text-pink-600 text-[11px] px-3 py-0.5 rounded-full font-bold uppercase tracking-wider">Step 1 of 2</span>
+                        <h2 class="text-xl md:text-2xl font-extrabold text-pink-700 shimmer-text pt-1">
+                            Where does my Baby boo wants to go? 🎀
+                        </h2>
+                        <p class="text-xs text-pink-400">Pick an activity spot for us!</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-3 pt-1">
+                        <!-- House Choice -->
+                        <button onclick="selectDestination('House')" class="xp-option-btn p-3.5 flex items-center gap-3.5 text-left group">
+                            <div class="w-11 h-11 rounded-xl bg-pink-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                🏠
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-pink-800 text-base">House</h3>
+                                <p class="text-xs text-pink-500">Cozy home time, movies & pampering</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-pink-400 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <!-- Sorsogon Choice (Date Planner Mode) -->
+                        <button onclick="selectDestination('Sorsogon')" class="xp-option-btn p-3.5 flex items-center gap-3.5 text-left group">
+                            <div class="w-11 h-11 rounded-xl bg-pink-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                🌴
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-pink-800 text-base">Sorsogon</h3>
+                                <p class="text-xs text-pink-500">Scenic road trip & date adventure</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-pink-400 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+
+                        <!-- Legazpi Choice (Date Planner Mode) -->
+                        <button onclick="selectDestination('Legazpi')" class="xp-option-btn p-3.5 flex items-center gap-3.5 text-left group">
+                            <div class="w-11 h-11 rounded-xl bg-pink-100 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                🌋
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-bold text-pink-800 text-base">Legazpi</h3>
+                                <p class="text-xs text-pink-500">Mayon volcano views & cafe date</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right text-pink-400 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- QUESTION STEP 2A: HOUSE MASSAGE BRANCH -->
+                <div id="step-2-house" class="step-card hidden space-y-4">
+                    <div class="text-center space-y-1">
+                        <span class="inline-block bg-pink-100 text-pink-600 text-[11px] px-3 py-0.5 rounded-full font-bold uppercase tracking-wider">Step 2 of 2</span>
+                        <h2 class="text-xl md:text-2xl font-extrabold text-pink-700 pt-1">
+                            Do you want a massage? 💆‍♀️✨
+                        </h2>
+                        <p class="text-xs text-pink-400">Extra special cozy treatment at home!</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button onclick="selectMassage('Yes')" class="xp-option-btn p-4 flex flex-col items-center text-center gap-2 group">
+                            <span class="text-3xl group-hover:scale-125 transition-transform">💆‍♂️💕</span>
+                            <span class="font-bold text-pink-800 text-base">Yes</span>
+                            <span class="text-[11px] text-pink-500">Full back rub & relaxation</span>
+                        </button>
+
+                        <button onclick="selectMassage('No')" class="xp-option-btn p-4 flex flex-col items-center text-center gap-2 group">
+                            <span class="text-3xl group-hover:scale-125 transition-transform">🥰💖</span>
+                            <span class="font-bold text-pink-800 text-base">No</span>
+                            <span class="text-[11px] text-pink-500">Just warm cozy snuggles</span>
+                        </button>
+                    </div>
+
+                    <div class="pt-2 flex justify-start">
+                        <button onclick="goBackToStep1()" class="text-xs text-pink-500 hover:text-pink-700 flex items-center gap-1 font-semibold underline">
+                            <i class="fa-solid fa-arrow-left"></i> Back to choices
+                        </button>
+                    </div>
+                </div>
+
+                <!-- QUESTION STEP 2B: SORSOGON / LEGAZPI DATE SCHEDULING BRANCH -->
+                <div id="step-2-when" class="step-card hidden space-y-4">
+                    <div class="text-center space-y-1">
+                        <span class="inline-block bg-pink-100 text-pink-600 text-[11px] px-3 py-0.5 rounded-full font-bold uppercase tracking-wider">Step 2 of 2</span>
+                        <h2 class="text-xl md:text-2xl font-extrabold text-pink-700 pt-1">
+                            When? ⏰💕
+                        </h2>
+                        <p class="text-xs text-pink-400">Select when we are going on our date!</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-2.5 pt-1">
+                        <button onclick="selectWhen('Tomorrow')" class="xp-option-btn p-3.5 flex items-center justify-between px-5 group">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">🌅</span>
+                                <span class="font-bold text-pink-800 text-base">Tomorrow</span>
+                            </div>
+                            <span class="text-xs bg-pink-100 text-pink-600 px-2.5 py-0.5 rounded-full font-semibold">Soon!</span>
+                        </button>
+
+                        <button onclick="selectWhen('Right Now')" class="xp-option-btn p-3.5 flex items-center justify-between px-5 group">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">⚡</span>
+                                <span class="font-bold text-pink-800 text-base">Right Now</span>
+                            </div>
+                            <span class="text-xs bg-pink-200 text-pink-700 px-2.5 py-0.5 rounded-full font-bold animate-pulse">Instant!</span>
+                        </button>
+
+                        <button onclick="selectWhen('On Monday')" class="xp-option-btn p-3.5 flex items-center justify-between px-5 group">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl">📅</span>
+                                <span class="font-bold text-pink-800 text-base">On Monday</span>
+                            </div>
+                            <span class="text-xs bg-pink-100 text-pink-600 px-2.5 py-0.5 rounded-full font-semibold">Upcoming</span>
+                        </button>
+                    </div>
+
+                    <div class="pt-2 flex justify-start">
+                        <button onclick="goBackToStep1()" class="text-xs text-pink-500 hover:text-pink-700 flex items-center gap-1 font-semibold underline">
+                            <i class="fa-solid fa-arrow-left"></i> Back to choices
+                        </button>
+                    </div>
+                </div>
+
+                <!-- STEP 3: FINAL CONFIRMATION & MESSENGER SHARE SCREEN -->
+                <div id="step-final" class="step-card hidden space-y-4 text-center">
+                    <div class="space-y-1">
+                        <div class="inline-flex p-2.5 bg-pink-100 rounded-full text-3xl animate-bounce">
+                            💌
+                        </div>
+                        
+                        <!-- Special Custom Banner Message depending on choice -->
+                        <h2 id="final-timing-header" class="text-xl md:text-2xl font-extrabold text-pink-600 font-cute">
+                            <!-- Populated dynamically: see you soon / see you tomorrow / see you right now! -->
+                        </h2>
+
+                        <p id="final-main-message" class="text-sm font-bold text-pink-700 shimmer-text">
+                            The date is set. Looking forward to it! 💕
+                        </p>
+                    </div>
+
+                    <!-- XP Retro Inset Voucher Summary Box -->
+                    <div class="xp-inset-box p-3.5 text-left space-y-2.5 relative overflow-hidden">
+                        <div class="absolute -right-3 -bottom-3 text-5xl opacity-10 text-pink-600 font-pixel pointer-events-none">
+                            LOVE PASS
+                        </div>
+
+                        <div class="flex items-center justify-between border-b border-pink-100 pb-1.5">
+                            <span class="text-[11px] font-bold text-pink-400 uppercase tracking-wide">Activity Voucher:</span>
+                            <span class="font-pixel text-pink-600 text-base font-bold">#BOO-2026</span>
+                        </div>
+
+                        <div class="space-y-2 text-xs">
+                            <div class="flex justify-between items-center">
+                                <span class="text-pink-500 font-medium">Location / Choice:</span>
+                                <span id="summary-destination" class="font-bold text-pink-800 bg-pink-50 px-2 py-0.5 rounded border border-pink-200"></span>
+                            </div>
+
+                            <div id="summary-massage-row" class="flex justify-between items-center">
+                                <span class="text-pink-500 font-medium">Massage Request:</span>
+                                <span id="summary-massage" class="font-bold text-pink-800 bg-pink-50 px-2 py-0.5 rounded border border-pink-200"></span>
+                            </div>
+
+                            <div id="summary-when-row" class="flex justify-between items-center">
+                                <span class="text-pink-500 font-medium">Schedule:</span>
+                                <span id="summary-when" class="font-bold text-pink-800 bg-pink-50 px-2 py-0.5 rounded border border-pink-200"></span>
+                            </div>
+
+                            <div class="flex justify-between items-center pt-1 border-t border-pink-100">
+                                <span class="text-pink-500 font-medium">Status:</span>
+                                <span class="text-[10px] bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <i class="fa-solid fa-circle-check"></i> Plan Confirmed
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MESSENGER SHARING BUTTONS -->
+                    <div class="flex flex-col gap-2 pt-1">
+                        <!-- Primary Messenger Native Share -->
+                        <button onclick="shareViaMessenger()" class="xp-option-btn py-3 px-4 font-bold text-pink-700 flex items-center justify-center gap-2 text-xs md:text-sm bg-gradient-to-r from-pink-100 via-pink-200 to-pink-100">
+                            <i class="fa-brands fa-facebook-messenger text-pink-600 text-base"></i>
+                            <span id="share-btn-text">Send via Messenger 💬</span>
+                        </button>
+
+                        <!-- Secondary Copy Summary Button -->
+                        <button onclick="copySummaryText()" class="bg-white/80 border border-pink-300 py-2 px-3 rounded-xl text-xs font-bold text-pink-600 flex items-center justify-center gap-1.5 hover:bg-pink-50 active:scale-95 transition-all">
+                            <i class="fa-regular fa-copy"></i>
+                            <span id="copy-btn-text">Copy Plan Text</span>
+                        </button>
+
+                        <!-- Restart Button -->
+                        <button onclick="restartPlanner()" class="text-[11px] text-pink-400 hover:text-pink-600 py-1 font-semibold flex items-center justify-center gap-1">
+                            <i class="fa-solid fa-rotate-left"></i> Change Activity / Restart
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- WINDOW FOOTER STATUS BAR WITH 'Setting Loving Loving' REQUIREMENT -->
+            <div class="bg-pink-100 border-t border-pink-200 px-3 py-1.5 flex items-center justify-between text-xs text-pink-700 font-semibold">
+                <div class="flex items-center gap-1.5">
+                    <!-- Cute Pulsing Indicator -->
+                    <span class="w-2.5 h-2.5 rounded-full bg-pink-500 animate-ping"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-pink-500 -ml-4"></span>
+                    <span>Setting Loving Loving</span>
+                </div>
+                <span class="text-[10px] text-pink-400">Baby Boo OS</span>
+            </div>
+        </div>
+    </main>
+
+    <!-- RETRO XP POPUP MODAL (For "Okiiie!" & Alerts) -->
+    <div id="xp-modal" class="fixed inset-0 bg-pink-950/30 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+        <div class="xp-window w-full max-w-xs modal-pop shadow-2xl">
+            <!-- Modal TitleBar -->
+            <div class="xp-titlebar px-3 py-1 flex items-center justify-between">
+                <div class="flex items-center gap-2 text-white font-bold text-xs">
+                    <span>💌</span>
+                    <span id="modal-title">Okiiie.exe</span>
+                </div>
+                <button onclick="closeModal()" class="xp-btn-control xp-btn-close">✕</button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="p-4 bg-white space-y-3 text-center">
+                <div id="modal-icon" class="text-3xl">💕</div>
+                <div class="space-y-1">
+                    <h3 id="modal-heading" class="font-extrabold text-pink-700 text-lg">Okiiie! 💕</h3>
+                    <p id="modal-body" class="text-xs text-pink-600 font-medium">Your response has been saved!</p>
+                </div>
+
+                <div class="pt-1 flex justify-center">
+                    <button onclick="closeModal()" class="xp-option-btn px-6 py-1 text-xs font-bold text-pink-700">
+                        OK ✨
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WINDOWS XP BOTTOM TASKBAR -->
+    <footer class="fixed bottom-0 left-0 w-full xp-taskbar h-10 z-30 flex items-center justify-between px-2 text-white text-xs">
+        <div class="flex items-center gap-2">
+            <!-- Start Button -->
+            <button onclick="triggerStartMenu()" class="xp-start-btn px-2.5 py-0.5 font-extrabold text-xs md:text-sm flex items-center gap-1.5 active:scale-95 transition-transform">
+                <span>🌸</span>
+                <span>Start</span>
+            </button>
+
+            <!-- Active Window Tab -->
+            <div id="taskbar-tab" onclick="restoreWindow()" class="bg-white/20 hover:bg-white/30 border border-white/30 px-2.5 py-0.5 rounded flex items-center gap-1.5 cursor-pointer font-medium text-[11px] max-w-[150px] truncate">
+                <span>💖</span>
+                <span class="truncate">Baby Boo Activity</span>
+            </div>
+        </div>
+
+        <!-- Clock & Date Display (Month DD, YYYY | HH:MM AM) -->
+        <div class="bg-pink-900/30 border border-pink-300/30 px-2.5 py-0.5 rounded flex items-center gap-2">
+            <i class="fa-solid fa-volume-high text-pink-200 text-[10px] cursor-pointer" onclick="playSoftTone(800)" title="Sound Enabled"></i>
+            <span id="xp-date-clock" class="font-pixel text-xs md:text-sm font-bold tracking-wider text-pink-100">
+                <!-- Populated via JS: October 10, 2026 | 03:53 AM -->
+            </span>
+        </div>
+    </footer>
+
+    <script>
+        // State Object
+        const activityState = {
+            destination: null,
+            massage: null,
+            when: null,
+            timingMessage: ''
+        };
+
+        // Web Audio Synthesizer for Retro Pastel Chimes
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+        }
+
+        function playPopSound() {
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(450, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(850, audioCtx.currentTime + 0.08);
+                
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch(e) {}
+        }
+
+        function playSoftTone(freq) {
+            try {
+                initAudio();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.1);
+            } catch(e) {}
+        }
+
+        function playFanfareSound() {
+            try {
+                initAudio();
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, i) => {
+                    setTimeout(() => {
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                        
+                        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+                        
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + 0.35);
+                    }, i * 95);
+                });
+            } catch(e) {}
+        }
+
+        // QUESTION FLOW LOGIC
+
+        // Step 1: Select Destination
+        function selectDestination(choice) {
+            playPopSound();
+            activityState.destination = choice;
+
+            document.getElementById('step-1').classList.add('hidden');
+
+            if (choice === 'House') {
+                // House branch -> massage question
+                document.getElementById('step-2-house').classList.remove('hidden');
+            } else {
+                // Sorsogon or Legazpi branch -> Date Planner "When?" question
+                document.getElementById('step-2-when').classList.remove('hidden');
+            }
+        }
+
+        // Back to Step 1
+        function goBackToStep1() {
+            playSoftTone(450);
+            document.getElementById('step-2-house').classList.add('hidden');
+            document.getElementById('step-2-when').classList.add('hidden');
+            document.getElementById('step-1').classList.remove('hidden');
+        }
+
+        // Step 2A: Massage Selection (If House)
+        function selectMassage(choice) {
+            playPopSound();
+            activityState.massage = choice;
+            activityState.when = null;
+            activityState.timingMessage = ""; // House branch default
+
+            // Show "Okiiie!" modal as requested
+            showModal("Okiiie! 💕", "massage", () => {
+                showFinalSummary();
+            });
+        }
+
+        // Step 2B: When Selection (If Sorsogon or Legazpi)
+        function selectWhen(choice) {
+            playPopSound();
+            activityState.when = choice;
+            activityState.massage = null;
+
+            // Set specific timing phrases requested:
+            if (choice === 'On Monday') {
+                activityState.timingMessage = "see you soon";
+            } else if (choice === 'Tomorrow') {
+                activityState.timingMessage = "see you tomorrow";
+            } else if (choice === 'Right Now') {
+                activityState.timingMessage = "see you right now! 💕";
+            }
+
+            showFinalSummary();
+        }
+
+        // STEP 3: Display Final Summary Card
+        function showFinalSummary() {
+            playFanfareSound();
+            triggerGlitterExplosion();
+
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2-house').classList.add('hidden');
+            document.getElementById('step-2-when').classList.add('hidden');
+            document.getElementById('step-final').classList.remove('hidden');
+
+            const headerElem = document.getElementById('final-timing-header');
+
+            if (activityState.destination === 'House') {
+                headerElem.innerText = "Okiiie! 💕";
+                document.getElementById('summary-massage-row').classList.remove('hidden');
+                document.getElementById('summary-when-row').classList.add('hidden');
+                document.getElementById('summary-massage').innerText = activityState.massage === 'Yes' ? 'Yes 💆‍♀️' : 'No (Cuddles only) 🥰';
+            } else {
+                headerElem.innerText = activityState.timingMessage;
+                document.getElementById('summary-massage-row').classList.add('hidden');
+                document.getElementById('summary-when-row').classList.remove('hidden');
+                document.getElementById('summary-when').innerText = activityState.when;
+            }
+
+            document.getElementById('summary-destination').innerText = activityState.destination;
+        }
+
+        // Restart Flow
+        function restartPlanner() {
+            playSoftTone(500);
+            activityState.destination = null;
+            activityState.massage = null;
+            activityState.when = null;
+            activityState.timingMessage = "";
+
+            document.getElementById('step-final').classList.add('hidden');
+            document.getElementById('step-2-house').classList.add('hidden');
+            document.getElementById('step-2-when').classList.add('hidden');
+            document.getElementById('step-1').classList.remove('hidden');
+        }
+
+        // Generate formatted text message for sharing
+        function getFormattedSummaryText() {
+            let msg = `🎀 BABY BOO ACTIVITY PLAN 🎀\n`;
+            msg += `Destination: ${activityState.destination}\n`;
+            if (activityState.destination === 'House') {
+                msg += `Massage: ${activityState.massage === 'Yes' ? 'Yes 💆‍♀️' : 'No 🥰'}\n`;
+                msg += `The date is set. Looking forward to it! 💕`;
+            } else {
+                msg += `When: ${activityState.when}\n`;
+                msg += `${activityState.timingMessage}! The date is set. Looking forward to it! 💕✨`;
+            }
+            return msg;
+        }
+
+        // MESSENGER & NATIVE SHARE LOGIC
+        function shareViaMessenger() {
+            playSoftTone(850);
+            const shareText = getFormattedSummaryText();
+
+            // 1. Try Mobile Native Web Share API (Triggers Android Share sheet with Messenger option)
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Baby Boo Date & Activity Plan',
+                    text: shareText
+                }).then(() => {
+                    const btnText = document.getElementById('share-btn-text');
+                    btnText.innerText = "Sent! 💕";
+                    setTimeout(() => { btnText.innerText = "Send via Messenger 💬"; }, 3000);
+                }).catch((err) => {
+                    // Fallback to Copying & opening Messenger
+                    fallbackMessengerCopy(shareText);
+                });
+            } else {
+                // Fallback for browsers without Web Share
+                fallbackMessengerCopy(shareText);
+            }
+        }
+
+        function fallbackMessengerCopy(text) {
+            copyTextToClipboard(text);
+            
+            const btnText = document.getElementById('share-btn-text');
+            btnText.innerText = "Copied! Opening Messenger...";
+            
+            setTimeout(() => {
+                // Try opening Messenger app / site
+                window.location.href = "https://m.me/";
+            }, 1000);
+
+            setTimeout(() => {
+                btnText.innerText = "Send via Messenger 💬";
+            }, 3500);
+        }
+
+        function copySummaryText() {
+            playSoftTone(900);
+            const text = getFormattedSummaryText();
+            copyTextToClipboard(text);
+
+            const copyBtnText = document.getElementById('copy-btn-text');
+            copyBtnText.innerText = "Copied to Clipboard! ✨";
+            setTimeout(() => {
+                copyBtnText.innerText = "Copy Plan Text";
+            }, 2500);
+        }
+
+        // Clipboard Helper for iFrames / Mobile
+        function copyTextToClipboard(text) {
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+        }
+
+        // Modal Popups Logic
+        let currentModalCallback = null;
+
+        function showModal(title, type, onOkCallback) {
+            currentModalCallback = onOkCallback;
+            const modal = document.getElementById('xp-modal');
+            const modalHeading = document.getElementById('modal-heading');
+            const modalBody = document.getElementById('modal-body');
+
+            if (type === 'massage') {
+                modalHeading.innerText = "Okiiie! 💕";
+                modalBody.innerText = "Massage choice noted! The date is set. Looking forward to it!";
+            } else if (type === 'closeAlert') {
+                modalHeading.innerText = "Nice try, Baby Boo! 💖";
+                modalBody.innerText = "You can't close love! Complete our activity plan first! 🎀";
+            } else if (type === 'start') {
+                modalHeading.innerText = "Baby Boo OS v2.5 🌸";
+                modalBody.innerText = "Made with love, pastel sparkles, and sweet intentions! Choose our date plan!";
+            } else if (type === 'help') {
+                modalHeading.innerText = "Need Help? 💡";
+                modalBody.innerText = "Tap your answers to let me know where you want to go and when!";
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            playSoftTone(500);
+            document.getElementById('xp-modal').classList.add('hidden');
+            if (currentModalCallback) {
+                const cb = currentModalCallback;
+                currentModalCallback = null;
+                cb();
+            }
+        }
+
+        function triggerCloseAlert() {
+            playSoftTone(300);
+            showModal("Love Alert", "closeAlert", null);
+        }
+
+        function showHelpBox() {
+            playSoftTone(600);
+            showModal("Help", "help", null);
+        }
+
+        function triggerStartMenu() {
+            playSoftTone(700);
+            showModal("Start", "start", null);
+        }
+
+        // Window Controls
+        function minimizeWindow() {
+            playSoftTone(400);
+            const win = document.getElementById('main-xp-window');
+            win.style.transform = "scale(0.01) translateY(500px)";
+            win.style.opacity = "0";
+        }
+
+        function restoreWindow() {
+            playSoftTone(600);
+            const win = document.getElementById('main-xp-window');
+            win.style.transform = "scale(1) translateY(0)";
+            win.style.opacity = "1";
+        }
+
+        let isMaximized = false;
+        function toggleMaximize() {
+            playSoftTone(650);
+            const win = document.getElementById('main-xp-window');
+            if (!isMaximized) {
+                win.classList.add('max-w-none', 'w-full');
+                isMaximized = true;
+            } else {
+                win.classList.remove('max-w-none', 'w-full');
+                isMaximized = false;
+            }
+        }
+
+        // Ambient Sparkle Canvas Engine
+        const canvas = document.getElementById('sparkle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let cursorTrail = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, isExplosion = false) {
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || Math.random() * canvas.height;
+                this.size = Math.random() * 3.5 + 1;
+                this.speedX = isExplosion ? (Math.random() - 0.5) * 7 : (Math.random() - 0.5) * 0.6;
+                this.speedY = isExplosion ? (Math.random() - 0.5) * 7 : -Math.random() * 1.2 - 0.2;
+                this.color = ['#ff85a1', '#ffb3c6', '#ffffff', '#ffc2df', '#f72585'][Math.floor(Math.random() * 5)];
+                this.opacity = Math.random() * 0.8 + 0.2;
+                this.isExplosion = isExplosion;
+                this.life = 100;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.isExplosion) {
+                    this.life -= 2;
+                    this.opacity = this.life / 100;
+                } else if (this.y < 0) {
+                    this.y = canvas.height;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.opacity);
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                if (this.size > 2.5) {
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(this.x - this.size * 1.8, this.y);
+                    ctx.lineTo(this.x + this.size * 1.8, this.y);
+                    ctx.moveTo(this.x, this.y - this.size * 1.8);
+                    ctx.lineTo(this.x, this.y + this.size * 1.8);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) {
+            particles.push(new Particle());
+        }
+
+        // Touch & Mouse Glitter Particle Creator
+        function addGlitterPoint(x, y) {
+            if (Math.random() > 0.3) {
+                cursorTrail.push({
+                    x: x,
+                    y: y,
+                    size: Math.random() * 3 + 1,
+                    alpha: 1,
+                    color: ['#ff477e', '#ff85a1', '#ffffff'][Math.floor(Math.random() * 3)]
+                });
+            }
+        }
+
+        window.addEventListener('mousemove', (e) => addGlitterPoint(e.clientX, e.clientY));
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                addGlitterPoint(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
+
+        function triggerGlitterExplosion() {
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle(centerX, centerY, true));
+            }
+        }
+
+        function animateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].isExplosion && particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            for (let i = cursorTrail.length - 1; i >= 0; i--) {
+                const t = cursorTrail[i];
+                t.alpha -= 0.035;
+                t.y += 0.4;
+
+                if (t.alpha <= 0) {
+                    cursorTrail.splice(i, 1);
+                } else {
+                    ctx.save();
+                    ctx.globalAlpha = t.alpha;
+                    ctx.fillStyle = t.color;
+                    ctx.beginPath();
+                    ctx.arc(t.x, t.y, t.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            requestAnimationFrame(animateCanvas);
+        }
+
+        // Formatted Real-time Clock & Date Updater (e.g., October 10, 2026 | 03:53 AM)
+        function updateDateClock() {
+            const now = new Date();
+            
+            const monthNames = [
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+
+            const month = monthNames[now.getMonth()];
+            const day = String(now.getDate()).padStart(2, '0');
+            const year = now.getFullYear();
+
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12;
+            const formattedHours = String(hours).padStart(2, '0');
+
+            const dateClockString = `${month} ${day}, ${year} | ${formattedHours}:${minutes} ${ampm}`;
+            document.getElementById('xp-date-clock').innerText = dateClockString;
+        }
+
+        window.onload = function() {
+            animateCanvas();
+            updateDateClock();
+            setInterval(updateDateClock, 1000);
+        };
+    </script>
+</body>
+</html>
